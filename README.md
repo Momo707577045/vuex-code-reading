@@ -1,5 +1,6 @@
 *文章持续输出中，源码注释还未完全整理，纯当阅读笔记，大神请勿较真*
 
+![Momo图](http://momo-project.b0.upaiyun.com/Assets/VUEX/chapter/imgs/001.png)
 
 ### 文章目录文件
 - article 文章所在文件夹
@@ -10,7 +11,9 @@
   - vuex-review.md 文章待整理部分
   - vuex-review-0.md 文章原稿（心急的同学可以看，但是没整理过，可能比较凌乱，语句也缺乏严谨）
 
-### 代码解析文档，请移步这里
+    ![Momo图](http://momo-project.b0.upaiyun.com/Assets/VUEX/chapter/imgs/021.jpg)
+
+### 源码导读文章，在这里
 - [通俗易懂Vuex源码导读0-全局介绍](https://segmentfault.com/a/1190000016692344)
 - [通俗易懂Vuex源码导读1-Vuex的安装](https://segmentfault.com/a/1190000016692486)
 - 通俗易懂Vuex源码导读2-模块状态树的生成，持续输出中...
@@ -21,3 +24,4 @@
 
 
 ### 由于内容较多，文章还在持续整理阶段，预计每周至少输出一篇
+![Momo图](http://momo-project.b0.upaiyun.com/Assets/VUEX/chapter/imgs/022.png)
