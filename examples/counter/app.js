@@ -5,7 +5,7 @@ import store from './store'
 
 new Vue({
   el: '#app',
-  store,
+  store, // 即store: store,
   render: h => h(Counter)
 })
 

@@ -1,137 +1,54 @@
-### 本系列文章目的
-- 真正的代码解析
-  - 网上有很多关于「vuex源码解析」的文章。但由于笔者水平有限，总觉得这些文章不太直观。
-  - 大部分文章只是在按顺序逐个js文件进行介绍，并没有根据程序的运行逻辑介绍，也没有与官方文档进行对应。
-  - 只有当真正理解了源码以后才恍然大悟，哦！原来文章是这个意思。
-  - 当这时文章已经失去了帮助理解源码，引领解析的意义。
-  ![Momo图]()
-- 本文通过以下方式帮助阅读，理解源码
-  - 给出数据结构，并介绍各数据的意义。
-  - 抛出结论，即给出源码的整体运行原理。
-  - 按照程序运行逻辑进行介绍，摒弃常规逐个文件进行介绍的方法。按照逻辑顺序进行介绍。
-  - 对应官网的介绍文章进行介绍。
-  - 通过以上的方式，带着整体印象去看源码，逐步进行验证，加深理解。不用一头雾水地猜源码。
-  ![Momo图]()
-- 希望能通过系列文章
-  - 能将vuex源码逻辑讲清楚，帮助大家理解源码。
-  - 让大家了解vuex的实现机制，使用起来更踏实，打破顾虑。
-  - 也希望借此消除大家对源码的恐惧，养成阅读源码的习惯。
-  ![Momo图]()
-
-### 文章阅读方式，及流程
-- 正如前面所说，需要事先了解下文给出的「变量介绍」，「运行原理」。起码要有个印象，后续讲解中，能带着结论，不断去印证。
-- 按顺序阅读，由于代码解析是根据程序运行逻辑进行介绍的，前后相互关联，所以需要按照顺序阅读
-- 但当内容较为复杂，嵌套太深时，会拆分出来讲。可以先点击链接，跳转到细则中看完，再回到主逻辑继续阅读
-- 本文讲得比较细，可能略显繁琐，大神请多包涵。理解能力强的同学，可以选择性跳过。
-  ![Momo图]()
-
-### 源码调试方法
+## Vuex 的安装流程，Vue.use(Vuex)
+# index.js
 ![Momo图]()
-- 虽然本文用不到，但可能有些同学想要自己打断点，打日志查看实际运行过程，所以在此进行介绍
-- 办法很简单，修改 vuex 库的索引源即可。例如修改示例中的 example->counter->app.js 文件
-
-  ```
-  import Vue from 'vue'
-  // import Vuex from 'vuex'
-  import Vuex from '../../src/index'
-  ```
-
-- 原理是，将原本对库的文件（build之后，被压缩过的）索引，改成对vuex源文件的索引
-- ```'../../src/index'``` 是```/src/index.js```文件，即vuex源码的入口文件
-- 修改后，参考 package.json 的说明，在目录下运行命令行```npm run dev```，即可执行示例程序
-- 在源码后打的日志或者断点，就能在示例中执行
+- Vue安装插件，通过[Vue.use函数](https://cn.Vuejs.org/v2/api/#Vue-use)执行，该函数会调用插件暴露出来的「install」方法，并将 Vue类 传递进来。
+- 首先，我们找到 Vuex 的源码文件 ```index.js```
+- 可以看见，Vuex确实导出了install函数
+- 「install」方法引用于store.js文件
 
 
-### 运行原理(重点)
+# store.js
 ![Momo图]()
-- 通过变量 _modules 变量保存配置项模块树（其数据结构与配置项的数据结构相同，相当于配置文件的拷贝，只是对数据进行了些处理）
-- 通过 state 变量保存与 _modules 模块树相同结构的 state 结构树，只是内容比较纯粹，全是state变量。
-  - 对应下图，获取c变量，则为state(顶层module的state，即moduleA).moduleB.moduleC.c，
-  - 子模块被当做 state 的一部分，以模块名为 key ，模块的 state 为 value 进行关联
-  ```
-  moduleA:{
-    ...,
-    state:{a:'a'},
-    modules:{
-      moduleB:{
-          ...,
-          state:{b:'b'},
-          modules:{
-            moduleC:{
-              state:{c:'c'},
-            }
-          }
-        }
-    }
-  }
-  ```
+- 在文件最底部，我们找到 install 函数，里面做了如下操作
+- 获取Vue实例，判断Vuex是否已经加载过，并通过变量Vue，保存Vue调用install方法时，传入的Vue类。
+- 最后调用函数 applyMixin，applyMixin 引用于 mixin.js 文件
 
 
-- 通过 _actions，_mutations，getters 数组保存所有模块配置中的 action, mutation，getter函数
-  - 如模块A，和模块B均有一个action函数actionFun，记做actionFun1和actionFun2。
-  - 则 _actions.actionFun = \[actionFun1，actionFun2]
-  - 如果模块设置了命名空间，则在保存函数时，往函数名中添加命名空间层级前缀。
-  - 如模块C也有一个 action 函数actionFun，记做actionFun3，但由于设置了命名空间前缀，在_actions中保存时，将这样保存_actions\['C/action'] = actionFun3
-- 调用 commit，dispatch，getter 时，从上面定义的容器中，找到同名的数组，顺序调用里面的函数
-- 数据绑定的效果，通过 Vue 的 watch，computed 特性完成
-- 总的来说，除了module和state使用了树结构，其他的都通过数组变量容器保存，需要用到的时候，再从里面拿。和我们简单地通过全局变量保存没太大的区别。只是做出了规范。
-
-
-
-### 变量介绍(重点)
+# mixin.js
 ![Momo图]()
-用得比较多的，出现比较多的变量，预先介绍一下
-- 【_committing】提交状态
-  - 在[严格模式](https://vuex.vuejs.org/zh/guide/strict.html)时，只要当_committing给false才可以修改state内容，用于防止非commit方式修改state（例如直接对state的变量进行赋值）。
-- 【_actions】action 函数数组对象容器
-  - 保存所有action函数数组，如 _actions.actionFun = \[actionFun1，actionFun2]
-  - 调用 dispatch 函数时，将获取 _actions 的同名数组，递归调用数组里面的函数
-- 【_mutations】 mutation 函数数组对象容器
-  - 数据结构与_actions相同
-  - 调用 commit 函数时，将获取 _mutations 的同名数组，顺序执行数组中保存的函数
-- 【_wrappedGetters】
-  - 保存 getter 函数的函数数组对象容器。
-  - 通过this.$store.getters 获取的就是 _wrappedGetters 对象，只是中间进行了一些处理
-- 【_modules】模块树，通过树结构，保存配置文件内容
-- 【store】存储对象
-  - 即this.$store，即整个vuex功能的实现函数，可以理解为vuex的对象实例
-  - 【store._vm】vuex内部保存的vue对象实例，用于借助 vue 的 watch 函数和 computed 函数实现数据响应
-  - 【store.getters】即 this.$store.getter，最终将调用 _wrappedGetters
-- 【path】模块层级数组
-  - 保存各个祖先模块的名字的数组，例如
-
-  ```
-  moduleA:{ // 对应path为[]
-    ...,
-    modules:{
-      moduleB:{ // 对应path为['A']
-          ...,
-          modules:{
-            moduleC:{}  // 对应path为['A','B']
-          }
-        }
-    }
-  }
-  ```
+- 来到这里，才是具体安装 Vuex 的函数
+- 获取Vue版本，根据不同的Vue版本，进行不同的注入操作
+  - Vue2.0以上的，在Vue的beforeCreate生命钩子中，执行安装函数
+  - Vue.mixin({ beforeCreate: VuexInit })
+  - 这里是通过mixin混合的方式，而调用者是install中传递进来的根Vue实例，所以这里使用的是全局混合
+  - 而根据[Vue全局混合](https://cn.Vuejs.org/v2/guide/mixins.html#%E5%85%A8%E5%B1%80%E6%B7%B7%E5%85%A5)的定义，后续所有子组件都将进行同样的混合
+  - 所以所有子组件，在beforeCreate阶段都将调用VuexInit方法
+  - 低于2.0版本做的也是类似的事情，只是当前还没有生命周期钩子，只能将安装代码插入到Vue的init方法里面被调用
 
 
+# VuexInit方法
+  - 获取配置文件，const options = this.$options。
+  - 这里的this，是Vue实例，因为这个函数是在Vue的beforeCreate钩子函数中被调用的。调用者是Vue实例。
+  - this.$options中的参数，可以在new Vue根实例时，传递进去（当然就也可以是vue自己的内部参数），[官方介绍](https://cn.Vuejs.org/v2/api/#vm-options)
+  - 如果有 this.$options.store，则表示是Vue根实例，因为store是在new Vue时传进去的变量。例如，在Vuex的示例代码中（/examples/counter/app.js），new Vue时，其中一项构造参数就是store
+    ![Momo图]()
 
-### 源代码文件介绍
-![Momo图]()
-- 【module】 模块相关处理的文件夹
-  - 【module.js】 生成模块对象
-  - 【module-collection.js】 递归解析模块配置，生成由「module.js 」的模块对象组成的模块树
-- 【plugins】 插件相关，与主体功能无关
-  - 【devtool.js】 chrome 的 vue 调试插件中使用到的代码，主要实现数据回滚功能
-  - 【logger.js】 日志打印相关
-- 【helpers.js】 辅助函数，mapGetters，mapActions，mapMutations等函数的实现
-- 【index.esm.js】 ES6 打包规范的入口文件
-- 【index.js】commonJS 打包规范的入口文件
-- 【mixin.js】vue 混合函数，实现 vuex 的安装功能
-- 【store.js】vuex 存储类，实现 vuex 的主体功能。
-- 【util.js】工具函数库，复用一些常用函数
+  - 获取this.$options.store，如果是传递的是函数，则调用该函数，原理与Vue的data一样，通过工厂模式，当多实例复用同一个配置对象时，防止数据相互污染。示例代码如（/examples/counter/store.js）[官方介绍](https://Vuex.Vuejs.org/zh/api/#Vuex-store-%E6%9E%84%E9%80%A0%E5%99%A8%E9%80%89%E9%A1%B9)
+    ![Momo图]()
+
+  - 但平时我们单页面应用只保存一个Vuex实例，所以一般直接传入Vuex对象，函数模式用的比较少
+
+  - 如果没有options.store，证明调用本函数的是Vue的子组件，不是根Vue实例。这时通过options.parent（options.parent是Vue的内置变量）找到父组件的索引。
+    - 对应官网的[parent变量](https://cn.vuejs.org/v2/api/#parent)，在options中定义vue的内置变量，可通过this.$访问到，所以this.options.parent相当于this.$parent
+  - 找到父组件的$store变量，父组件的$store又源于其父组件的$store，通过层层递归，最终找到根Vue的$store变量
+  - 并赋值到子组件的this.$store，从而让所有Vue组件都能通过this.$store找到Vuex对象实例。对应[Vuex官网的这一段介绍](https://Vuex.Vuejs.org/zh/guide/state.html#%E5%9C%A8-Vue-%E7%BB%84%E4%BB%B6%E4%B8%AD%E8%8E%B7%E5%BE%97-Vuex-%E7%8A%B6%E6%80%81)
+  - ![Momo图]()
 
 
-### 下一篇文章将正式讲解源码，介绍vuex的安装运行过程
+# 小结
+  - 以上实现了Vuex的安装
+  - 所有Vue组件对Vuex对象的引用
+  - 在「store.js」这个模块中，获取并保存了Vue根实例的引用
+  - 到此为止，Vuex暂时还未和Vue有什么深层次的耦合，只是在Vue中添加了一个Vuex的变量引用而已
 
-
+# 下一章节，将介绍Vuex.store的创建过程，真正接触Vuex的功能代码
