@@ -523,17 +523,78 @@ function unifyObjectStyle(type, payload, options) {
   return { type, payload, options }
 }
 
-// vue组件注入函数，在Vue.use时，将调用该方法
-// 这是vuex模块导出的函数，只是一个函数，与store类，store实例无关
-// 该函数的作用是，往vue声明周期中添加钩子，在钩子中实例化store类，并挂载到各个子组件中
+
+
+
+
+
+
+// vue插件安装函数，在Vue.use时，将调用该方法
 export function install(_Vue) {
   if (Vue && _Vue === Vue) {
-    // 做的优化，当执行环境不是production时，在控制台中报错。但是process.env.NODE_ENV是node环境，
-    if (process.env.NODE_ENV !== 'production') {
+    // 当执行环境不是production时(非生产环境)，在控制台中重复安装的报错。
+    if (process.env.NODE_ENV !== 'production') { // process.env.NODE_ENV变量，在Vue执行build命令时，往全局导入
       console.error('[vuex] already installed. Vue.use(Vuex) should be called only once.')
     }
     return
   }
-  Vue = _Vue // 用本地的变量保存外部传入的vue
-  applyMixin(Vue) // 向vue的各个组件中注入vuex实例。由此vue内容将共享一个$store变量
+  Vue = _Vue // 用本地的变量保存外部传入的Vue类
+  applyMixin(Vue) // 向vue的各个组件中注入Vuex实例，共享一个$store变量
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

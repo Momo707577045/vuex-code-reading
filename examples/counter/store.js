@@ -51,9 +51,7 @@ const getters = {
   evenOrOdd: state => state.count % 2 === 0 ? 'even' : 'odd'
 }
 
-// 这里导出的必须是一个对象，因为在vue实际调用use函数时，实际上会调用vuex实例的install函数，如果传入的是类，则没有install函数
-// VUEX导入的内容之一，Store：主业务类
-export default () => { // 除了直接返回一个实例对象，也可以返回一个函数，该函数再返回实例对象
+export default () => {
   return new Vuex.Store({
     state,
     getters,
@@ -68,3 +66,45 @@ export default () => { // 除了直接返回一个实例对象，也可以返回
     }
   })
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

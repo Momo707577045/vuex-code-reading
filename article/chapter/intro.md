@@ -1,32 +1,39 @@
-### 本系列文章目的
+## 本系列文章目的
 - 真正的代码解析
   - 网上有很多关于「vuex源码解析」的文章。但由于笔者水平有限，总觉得这些文章不太直观。
   - 大部分文章只是在按顺序逐个js文件进行介绍，并没有根据程序的运行逻辑介绍，也没有与官方文档进行对应。
   - 只有当真正理解了源码以后才恍然大悟，哦！原来文章是这个意思。
-  - 当这时文章已经失去了帮助理解源码，引领解析的意义。
-  ![Momo图]()
+  - 但这时文章已经失去了帮助理解源码，帮助解析的意义。
+
+    ![Momo图](http://momo-project.b0.upaiyun.com/Assets/VUEX/chapter/imgs/002.jpeg)
+
 - 本文通过以下方式帮助阅读，理解源码
   - 给出数据结构，并介绍各数据的意义。
   - 抛出结论，即给出源码的整体运行原理。
   - 按照程序运行逻辑进行介绍，摒弃常规逐个文件进行介绍的方法。按照逻辑顺序进行介绍。
   - 对应官网的介绍文章进行介绍。
+  - 尽量图文丰富，穿插表情包，让学习过程更愉悦些。
   - 通过以上的方式，带着整体印象去看源码，逐步进行验证，加深理解。不用一头雾水地猜源码。
-  ![Momo图]()
+
+    ![Momo图](http://momo-project.b0.upaiyun.com/Assets/VUEX/chapter/imgs/014.jpeg)
 - 希望能通过系列文章
   - 能将vuex源码逻辑讲清楚，帮助大家理解源码。
   - 让大家了解vuex的实现机制，使用起来更踏实，打破顾虑。
   - 也希望借此消除大家对源码的恐惧，养成阅读源码的习惯。
-  ![Momo图]()
 
-### 文章阅读方式，及流程
+    ![Momo图](http://momo-project.b0.upaiyun.com/Assets/VUEX/chapter/imgs/004.jpg)
+
+## 文章阅读方式，及流程
 - 正如前面所说，需要事先了解下文给出的「变量介绍」，「运行原理」。起码要有个印象，后续讲解中，能带着结论，不断去印证。
 - 按顺序阅读，由于代码解析是根据程序运行逻辑进行介绍的，前后相互关联，所以需要按照顺序阅读
 - 但当内容较为复杂，嵌套太深时，会拆分出来讲。可以先点击链接，跳转到细则中看完，再回到主逻辑继续阅读
 - 本文讲得比较细，可能略显繁琐，大神请多包涵。理解能力强的同学，可以选择性跳过。
-  ![Momo图]()
 
-### 源码调试方法
-![Momo图]()
+  ![Momo图](http://momo-project.b0.upaiyun.com/Assets/VUEX/chapter/imgs/001.png)
+
+## 源码调试方法
+
+![Momo图](http://momo-project.b0.upaiyun.com/Assets/VUEX/chapter/imgs/008.jpg)
 - 虽然本文用不到，但可能有些同学想要自己打断点，打日志查看实际运行过程，所以在此进行介绍
 - 办法很简单，修改 vuex 库的索引源即可。例如修改示例中的 example->counter->app.js 文件
 
@@ -42,8 +49,9 @@
 - 在源码后打的日志或者断点，就能在示例中执行
 
 
-### 运行原理(重点)
-![Momo图]()
+## 运行原理(重点)
+
+![Momo图](http://momo-project.b0.upaiyun.com/Assets/VUEX/chapter/imgs/016.jpeg)
 - 通过变量 _modules 变量保存配置项模块树（其数据结构与配置项的数据结构相同，相当于配置文件的拷贝，只是对数据进行了些处理）
 - 通过 state 变量保存与 _modules 模块树相同结构的 state 结构树，只是内容比较纯粹，全是state变量。
   - 对应下图，获取c变量，则为state(顶层module的state，即moduleA).moduleB.moduleC.c，
@@ -78,9 +86,12 @@
 
 
 
-### 变量介绍(重点)
-![Momo图]()
-用得比较多的，出现比较多的变量，预先介绍一下
+## 变量介绍(重点)
+
+![Momo图](http://momo-project.b0.upaiyun.com/Assets/VUEX/chapter/imgs/017.jpeg)
+
+*用得比较多的，出现比较频繁的变量，预先介绍一下*
+
 - 【_committing】提交状态
   - 在[严格模式](https://vuex.vuejs.org/zh/guide/strict.html)时，只要当_committing给false才可以修改state内容，用于防止非commit方式修改state（例如直接对state的变量进行赋值）。
 - 【_actions】action 函数数组对象容器
@@ -116,8 +127,9 @@
 
 
 
-### 源代码文件介绍
-![Momo图]()
+## 源代码文件介绍
+
+![Momo图](http://momo-project.b0.upaiyun.com/Assets/VUEX/chapter/imgs/install-src.png)
 - 【module】 模块相关处理的文件夹
   - 【module.js】 生成模块对象
   - 【module-collection.js】 递归解析模块配置，生成由「module.js 」的模块对象组成的模块树
@@ -131,7 +143,15 @@
 - 【store.js】vuex 存储类，实现 vuex 的主体功能。
 - 【util.js】工具函数库，复用一些常用函数
 
+## 文章原稿，带注释源码，[戳这里](https://github.com/Momo707577045/Vuex-code-reading)
+*文章持续输出中，源码注释还未完全整理，纯当阅读笔记，大神请勿较真*
 
-### 下一篇文章将正式讲解源码，介绍vuex的安装运行过程
 
+![Momo图](http://momo-project.b0.upaiyun.com/Assets/VUEX/chapter/imgs/009.jpg)
+
+## 下一篇文章将正式讲解源码，从vuex的安装过程开始讲起
+
+![Momo图](http://momo-project.b0.upaiyun.com/Assets/VUEX/chapter/imgs/011.gif)
+
+不给钱，点个赞也成啊~
 

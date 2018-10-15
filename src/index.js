@@ -1,12 +1,10 @@
 // commonJS打包规范
-
 import { Store, install } from './store'
 import { mapState, mapMutations, mapGetters, mapActions, createNamespacedHelpers } from './helpers'
 
-
-// VUEX包导出的内容就只要这几个
+// Vuex包导出的内容
 export default {
-  Store, // VUEX主业务类
+  Store, // Vuex主业务类
   install, // vue组件注入函数
   version: '__VERSION__', // 版本
   mapState, // 导出state辅助函数
@@ -21,5 +19,4 @@ export default {
    * mapActions
    */
   createNamespacedHelpers
-
 }
