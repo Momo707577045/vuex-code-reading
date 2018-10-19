@@ -128,67 +128,6 @@
 
 
 
-## 创建模块树 new ModuleCollection(options)
-# 构造函数
-- 状态模块树在「module-collection.js」中定义
-- 状态模块树是指，以各个状态对象为节点，以树结构组合而成的变量
-- 构造函数获取的参数是，初始化store对象时，传入的vuex配置对象。例如
-```
-{
-  state,
-  getters,
-  actions,
-  mutations,
-  plugins: process.env.NODE_ENV !== 'production'
-    ? [createLogger()]
-    : []
-}
-```
-- 通过源码可以看到，传递的配置对象，在构造函数中，通过形参rawRootModule来保存，即将导入的整个对象。当做vuex的根模块对象
-- 构造函数调用的是register函数，即构造函数的作用是注册根模块
-
-# 注册函数
-- 参数解析，path, rawModule, runtime = true
-  - path是被注册模块的层级关系数组，即当前模块，有多少个模块，path保存的是祖先模块的名字，通过路径名来体现
-  - rawModule是模块的配置文件，即在定义模块时，开发者定义的模块配置内容，如模块的state，getters，actions等等
-  - runtime表示是否是运行状态，在运行状态下，不能进行某些特定操作
-- assertRawModule
-  - 操作前先断言模块，配置配置信息的数据类型是否正确
-  - 里面判断了getters，mutations，actions等配置项，数据类型是否正确。不正确则抛出异常
-  - 这部分代码比较简单，暂不接受Momo
-- const newModule = new Module(rawModule, runtime)
-  - 根据配置文件，生成具体模块对象。
-  - new Module(rawModule, runtime)方法的调用，这里的方法内部较为复杂，点击这里查看[详情]()
-  - 返回一个对象，数据结构如下
-- 通过path判断是否为根模块
-  - 如果是根模块，则通过变量this.root保存
-  - 不是根模块，则通过get方法获取父模块对象
-    - get方法传入的是路径数组，slice(0, -1)是去除本级所在路径，从而保留所有祖先模块的路径
-    - get函数内部，使用了数组的[reduce函数](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/reduce)，
-      - reduce函数有两个参数，第一个是回调函数，第二个是初始值
-      - 回调参数有，参数一是该函数上一次的执行结果或者reduce函数的第二参数设置的初始值，即return值。参数二是，被调用的数组的某个元素
-      - 该函即循环对数组中的每个元素进行函数处理，并将运行结果当做参数给下一次执行做参数
-      - reduce函数的第二个参数，初始值是this.root，是前面保存起来的，根模块
-      - reduce内部执行的操作是module.getChild(key)
-      - getChild调用的是模块对象中的getChill函数，返回模块的_children子模块容器的特定子模块
-    - 整合而言，get的作用，是从根模块出发，根据给出的path数组，循环寻找子模块对象，
-    - 由于调用时，去除了本层次，所以获取得的是本模块的父模块
-    - 调用父模块的addChild方法，path[path.length - 1]获得的是本模块的名，newModule是由本模块配置文件生成的模块对象
-      - addChild与getChild相对，是往模块对象的_children子模块容器里面，以子模块名（path的元素）为key值，添加子模块
-      - 对应了上一步，获取parent的方法
-- if (rawModule.modules)，判断路由配置对象中，有没有子模块的配置
-  - 如果有，则递归调用注册函数register本身
-  - 传入的参数一，是加上了本层模块名的路径层级，rawChildModule是子模块配置文件，runtime是继承而来的运行时标识，暂时还没用上
-- 小结
-  - 由此，完成了模块的递归注册，通过模块的_children容器保存子模块的链接（以子模块名为key，对应模块对象为value），形成了模块树结构
-  - 每个模块对象，包含state，和_rawModule，原配置信息
-
-
-
-
-
-  - 因为这个注册函数是复用的，所以模块的注册都会调用该函数，所以需要判断是否为根模块
-
 # dispatch函数介绍
 - 参数介绍
   - _type 是调用的mutation函数名，payload是负载参数
@@ -198,18 +137,6 @@
 
 
 
-
-
-## 创建具体模块对象 new Module(rawModule, runtime)
-# 构造函数
-- 参数解析，
-  - rawModule是模块的配置文件，即在定义模块时，开发者定义的模块配置内容，如模块的state，getters，actions等等
-  - runtime表示是否是运行状态，在运行状态下，不能进行某些特定操作
-- 构造函数，
-  - 从配置参数中，获取了state数据
-  - 定义了子模块对象容器。Object.create(null)是为定义一个纯粹的对象
-  - 保存配置参数本身
-  - 解析state，可以是函数，运用工厂模式产生配置对象
 
 
 ## installModule
