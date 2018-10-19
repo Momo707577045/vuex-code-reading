@@ -1,22 +1,4 @@
 
-## vuex对象的创建 new Vuex.Store({...})
-- Store是index.js导出的Store类，Store类是store.js中定义的。找到Store类的构造函数constructor
-- 判断vuex是否已经被注入，兼容[另一种注入方法](https://cn.vuejs.org/v2/guide/plugins.html#%E4%BD%BF%E7%94%A8%E6%8F%92%E4%BB%B6)，即将vue挂载在window对象上。自动检测，如果有挂载，而且没有被注册过。则调用注册方法。
-- 一些断言，需要依赖promise功能，类有没有被正确的实例化。这些断言语音，在正式环境，vue build出来以后。报错信息会被忽略掉
-- 定义各项数据容器，以下变量在后续中将扮演重要的作用
-- ModuleCollection方法的调用，这里的方法内部较为复杂，点击这里查看[详情]()
-- 获取 dispatch函数 与 commit函数，并复写该函数
-  - 复写的作用，是将两个函数的this指针绑定到vuex实例本身。防止this的指向被修改
-  - 因为这两个函数，可以通过 mapMutations 和 mapActions 辅助函数转化为 vue 中的普通函数，这时this将指向vue组件，而不是vuex实例。所以在这里先将this锁定好。具体逻辑查看后续辅助函数的介绍
-  ，[详情查看例子](https://vuex.vuejs.org/zh/guide/mutations.html#%E5%9C%A8%E7%BB%84%E4%BB%B6%E4%B8%AD%E6%8F%90%E4%BA%A4-mutation)
-  - dispatch具体做了什么，里面有些变量，暂时还没介绍到，咱们回头再[查看]()
-- 获取获取根模块的state状态 const state = this._modules.root.state
-- 安装模块installModule，设置提交函数的重载，根据是否设置命名空间，设置参数前缀。将module的配置项注入到store对应对象中收集保存起来。详情[看这里]()
-- 调用resetStoreVM，借助Vue的watch功能和computed功能，实现数据的响应式。详情[看这里]()
-- vuex插件注册，有插件，则调用插件的函数
-- 最后是Vue调试工具的相关处理，实现时间穿梭的功能
-- 至此为止，创建工作全部完成了，也对整体数据结构有了大概了解。紧接着是根据vuex官方文档逐章介绍，一一对应官网的内容
-
 
 ## 首先介绍的是state
 - [唯一状态树](https://vuex.vuejs.org/zh/guide/state.html#%E5%8D%95%E4%B8%80%E7%8A%B6%E6%80%81%E6%A0%91)
@@ -139,55 +121,6 @@
 
 
 
-## installModule
-- 参数介绍
-  - store,  vuex实例
-  - rootState, 根模块的state对象
-  - path,  当前模块的层级关系
-  - module, 模块内容
-  - hot, ？？？
-- 判断当前模块是否根模块
-- 获取模块的命名空间
-  - 调用状态模块树的 getNamespace 方法，传入当前模块的层级路径
-  - getNamespace 和之前提到的 get 方法类似，同样是从根模块出发，更具给出的路径数组，递归每一个层级的模块
-  - 在每一个模块中，判断配置对象有没有设置命名[空间变量namespaced](https://vuex.vuejs.org/zh/guide/modules.html#%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4)
-  - 有命名空间，则以模块名结合"/"，形成命名空间路径，即本函数是获取模块的命名空间
-- 如果模块设置了命名空间，则将本模块存入当模块命名容器对象_modulesNamespaceMap中，以命名空间路径名为key
-- 对非根容器的处理
-  - 通过getNestedState，寻找父模块的state对象，
-    - getNestedState参数介绍，rootState是根容器的state，path.slice(0, -1)是除去本模块后的模块层级数组
-    - 与get函数 getNamespace函数类型，从state中根据path层级数组，每层递归寻找，找到对应的state
-    - 在这里找的是父模块的state对象
-    - 从这个操作，我们可以猜到，state也将和module模块树一样，通过state形成一个state树，其树结构和module结构相对应
-  - 调用vuex的_withCommit函数
-    - 该函数的操作很简单，只是将设置_committing标识符为ture，然后执行某函数，函数执行完在将_committing设置为原来的值
-    - 即保证在执行某函数的过程中，_committing设置为ture。类似防止函数执行过程中，某特定操作被执行
-  - 在_withCommit函数中，
-    - 借用Vue实例（该实例在第一步，Vuex注入的时候被保存）。调用Vue的[set函数](https://cn.vuejs.org/v2/api/#Vue-set)
-    - 即往父State（这个对象）中添加，key为模块名，value为具体模块对象的变量
-    - 借用Vue.set，实现数据绑定，
-    - 注意，由于是直接往父模块的State中添加变量，当父模块的state中有与插入的模块同名的变量时，原变量将被覆盖
-  - 结合  Vue.set(parentState, moduleName, module.state) 及 getNestedState函数，我们可以确定state也将和module模块树一样，通过state形成一个state树，其树结构和module结构相对应
-- 创建模块内容，makeLocalContext(store, namespace, path)。并将生成的content内容，赋值到之前生成过的模块对象module中，通过变量名context保存。makeLocalContext[详情看这里]()
-  - 模块内容，返回命名空间前缀处理后的getters，state，commit，dispatch方法
-- 调用module.forEachMutation方法，对模块的mutation进行注册
-  - forEachMutation方法，从模块对象的 _rawModule遍历（即开发者定义的模块配置文件）中，获取 mutations 方法，并进行遍历
-  - registerMutation注册函数
-    - 参数介绍，store是vuex实例, type是mutation函数名, handler是mutation的函数体，即实际执行的函数, local是刚刚生成的模块的local对象
-    - store._mutations[type]，以mutation函数名为key，在vuex根实例的_mutations容器对象中，添数组容器。存放所有同名的mutation函数
-    - 所以mutation是不怕重名的，重名将逐个执行调用。这个在官网中没有做介绍
-    - 往mutation函数数组中加入一个函数，函数的参数就是我们在使用commit时的第二个参数该函数内部
-    - 在函数内部，是修改this，并多传递一个参数以后，调用的函数，这也是为什么我们在commit的时候只传递了负载参数，但在实际执行mutation的时候有多个参数
-    - 中的来说，是收集配置函数中的mutation函数，统一通过vuex实例的_mutations变量保存
-- 调用module.forEachAction方法，对模块的action进行注册
-  - 注册action的操作和注册Mutation的操作大体相同，同样是通过一个变量收集所有模块的action函数
-  - 只是注册action时，多传递了参数
-- 调用registerGetter，注册每一个getter方法，通过_wrappedGetters收集
-- 调用registerGetter，注册每一个getter方法，通过_wrappedGetters收集
-- 最后是循环注册所有模块
-- 小结
-  - 总的来说，是手机模块配置文件中的每一个mutation项目，每一个action，每一个getter。往中添加参数
-
 ## 创建模块内容，makeLocalContext
 - 参数介绍
   - store, vue实例
@@ -218,7 +151,7 @@
         - 检测各个函数名，判断该函数名的前缀是否与本模块的命名空间相同。找到所有相同的getter
         - 去除命名空间前缀，能获取getter函数名
         - 同样，通过Object.defineProperty，往刚刚定义的gettersProxy对象中，添加变量，并设置其get拦截器。enumerable是其中一个配置项目，设置当使用for等枚举循环时，是否显示该变量
-        - 将不带命名空间前缀的getter名作为key，当访问它时，返回是，从vuex实例中，getters总容器中提取的带上命名空间前缀的getter函数
+        - 将不带命名空间前缀的getter名作为key，当访问它时，返回是，从store.getters(即)总容器中提取的带上命名空间前缀的getter函数
         - 所以说，其实所有的getter都存放在了vuex实例的_wrappedGetters变量中，如模块没有命名空间前缀，则直接存入。否则将getter函数名带上命名空间前缀后，再加入进去
       - 小结，
         - makeLocalGetters的作用，是将通过模块拿getter时，如何通过store.getters中取。是否应该添加前缀、
