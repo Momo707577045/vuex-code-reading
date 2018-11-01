@@ -121,67 +121,6 @@
 
 
 
-## 创建模块内容，makeLocalContext
-- 参数介绍
-  - store, vue实例
-  - namespace, 模块的命名空间层级路径
-  - path，module层级关系
-  - 注意，namespace与path并不一样相对，因为命名层级，只有当模块设置有命名空间，才存在对应层级命名
-- 定义local对象
-  - 定义local对象的dispatch函数
-    - 根据本模块及祖先容器是否是设置过命名空间进行判断
-    - 没有设置，则直接使用vuex实例的dispatch函数
-    - 有命名空间，则在使用vuex实例的dispatch函数前，对参数进行一些处理
-    - 统一参数形式，type是action函数名，payload是负载变量，options是配置项
-    - 根据options.root判断是否往全局发送的action函数，对应[官网](https://vuex.vuejs.org/zh/guide/modules.html#%E5%9C%A8%E5%B8%A6%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%E7%9A%84%E6%A8%A1%E5%9D%97%E5%86%85%E8%AE%BF%E9%97%AE%E5%85%A8%E5%B1%80%E5%86%85%E5%AE%B9%EF%BC%88global-assets%EF%BC%89)
-    - 如果不是发送全局的action函数，即只发送本模块内的action函数，这是往调用的的action函数名中，添加命名空间路径前缀，对应一开始数据结构定义的那样
-    - 最后，调用vuex实例的dispatch函数
-  - 定义commit函数
-    - 操作步骤和定义local对象的dispatch函数类似
-    - 有命名空间，则往mutation函数前添加命名空间前缀
-    - 最后也而是调用vuex实例的commit函数
-- 调用Object.defineProperties函数，往local对象中添加两个变量getters和state，设置local变量的getter函数和
-  - Object.defineProperties函数用于往某对象中添加属性，并设置该数据的访问拦截器，即访问该数据时，将先调用拦截器函数，[详细介绍](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperties)
-  - 定义getters变量，并设置其拦截器。同样的，根据是否设置命名空间
-    - 没有，则直接访问vuex实例的getters变量
-    - 否则调用makeLocalGetters函数，生成自己的getters
-      - 参数介绍，store是vuex实例，namespace是命名空间名
-      - 先定义一个对象gettersProxy，
-      - 遍历store.getters中的所有函数
-        - 检测各个函数名，判断该函数名的前缀是否与本模块的命名空间相同。找到所有相同的getter
-        - 去除命名空间前缀，能获取getter函数名
-        - 同样，通过Object.defineProperty，往刚刚定义的gettersProxy对象中，添加变量，并设置其get拦截器。enumerable是其中一个配置项目，设置当使用for等枚举循环时，是否显示该变量
-        - 将不带命名空间前缀的getter名作为key，当访问它时，返回是，从store.getters(即)总容器中提取的带上命名空间前缀的getter函数
-        - 所以说，其实所有的getter都存放在了vuex实例的_wrappedGetters变量中，如模块没有命名空间前缀，则直接存入。否则将getter函数名带上命名空间前缀后，再加入进去
-      - 小结，
-        - makeLocalGetters的作用，是将通过模块拿getter时，如何通过store.getters中取。是否应该添加前缀、
-  - 定义state，及其拦截器
-    - state的获取，则不需要命名空间前缀的识别，而且直接通过getNestedState，从state树结构中取
-    - 这是因为state和getter的存储方式不一样，state是独立的状态树，有明显的层级关系
-    - getters则全部都放在vuex实例的getters变量中保存，属于同层级，只是通过函数前缀进行了区分（有设命名空间的话）
-    - state是根据层级关系设置，getters则更具命名空间区分，与层级关系不大
-- 小结
-  - 定义可local变量，有设置命名空间，则往各个函数名中添加命名空间前缀
-  - 对应数据结构中，全局容器的介绍就更清晰了，实际操作的函数还是那个函数，这里只是在调用函数前，对参数进行一些调整
-  - 设置了getters，state，commit，dispatch方法的中间处理
-
-
-## resetStoreVM
-- 参数介绍，store是vuex实例, state是根模块的state对象，也是state树结构入口, hot是某个标识符
-- 定义getters对象，注意，这里个getters变量和手机模块getter的变量_wrappedGetters不同。是定义一个全新变量
-- 定于computed变量
-- 遍历上一个步骤中找到的所有getter函数，将每一个getter函数中当做store.getters的变量，
-  -当访问store.getters的的getter函数时，通过设置get拦截，实际返回的是store._vm的同名函数，store._vm在后续定义
-  - 往computed中，加入getter函数，访问getter时，将调用getter函数本身，并将vuex实例传递进去
-- 定义store._vm变量，定义为新建的Vue实例。
-  - 并在vue实例的data中，通过$$state保存vuex实例本身
-  - 并将刚刚定义的computed变量传递进入，当做vue的computed属性。从而实现了getter函数的computed功能。getter 的返回值会根据它的依赖被缓存起来，且只有当它的依赖值发生了改变才会被重新计算。对应[官网的介绍](https://vuex.vuejs.org/zh/guide/getters.html#getter)
-- 设置严格模式，enableStrictMode，该函数内部，
-  - 通过Vue的watch功能，监听this._data.$$state（与vuex根实例的state变量同一个地址，所以就是监听store.state的变化）
-  - 当state发生变化，但_committing为false，即当前非commit操作时。将报错
-  - 非commit操作，即直接修改state的值，在严格模式下禁止运行，对应[官网介绍](https://vuex.vuejs.org/zh/guide/strict.html)
-- 后续hot是设置热重载功能，本人研究不多，暂不做讲解
-
 
 
 
