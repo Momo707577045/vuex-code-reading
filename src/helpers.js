@@ -145,3 +145,14 @@ function getModuleByNamespace(store, helper, namespace) {
   }
   return module
 }
+
+
+
+
+
+
+
+
+
+
+

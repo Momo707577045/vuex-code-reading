@@ -509,7 +509,7 @@ function getNestedState(state, path) {
 
 // 统一对象风格，兼容使用dispatch的两种传参方式
 function unifyObjectStyle(type, payload, options) {
-  if (isObject(type) && type.type) {
+  if (isObject(type) && type.type) { // 如果是对象类型，则重新调整参数的位置
     options = payload // options，分发时的配置文件，options 里可以有 root: true，它允许在命名空间模块里分发根的 action
     payload = type // payload，分发该action时携带的参数
     type = type.type // 分发的action的名字

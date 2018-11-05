@@ -2,12 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2fe64f90-5ae2-4198-b01a-3e831cdb6447" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/article/chapter/imgs/resetStoreVM-001.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/article/chapter/imgs/resetStoreVM-002.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/article/chapter/imgs/resetStoreVM-003.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/article/chapter/official-map.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/article/chapter/resetStoreVM.md" beforeDir="false" afterPath="$PROJECT_DIR$/article/chapter/resetStoreVM.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/article/chapter/installModule.md" beforeDir="false" afterPath="$PROJECT_DIR$/article/chapter/install-module.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/article/chapter/resetStoreVM.md" beforeDir="false" afterPath="$PROJECT_DIR$/article/chapter/reset-store-vm.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/article/temp.md" beforeDir="false" afterPath="$PROJECT_DIR$/article/temp.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/article/vuex-review.md" beforeDir="false" afterPath="$PROJECT_DIR$/article/vuex-review.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/helpers.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/helpers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/dist/" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -25,35 +28,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="resetStoreVM.md" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/article/chapter/resetStoreVM.md">
+      <file leaf-file-name="temp.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/article/temp.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
             <state split_layout="FIRST">
-              <first_editor relative-caret-position="240">
-                <caret line="16" column="89" lean-forward="true" selection-start-line="16" selection-start-column="89" selection-end-line="16" selection-end-column="89" />
-              </first_editor>
-              <second_editor>
-                <markdownNavigatorState />
-              </second_editor>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="store.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/store.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="258" column="26" lean-forward="true" selection-start-line="257" selection-start-column="1" selection-end-line="258" selection-end-column="26" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="installModule.md" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/article/chapter/installModule.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
-            <state split_layout="FIRST">
-              <first_editor relative-caret-position="198">
-                <caret line="15" column="92" lean-forward="true" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="92" />
+              <first_editor relative-caret-position="15">
+                <caret line="1" column="27" selection-end-line="3" />
               </first_editor>
               <second_editor>
                 <markdownNavigatorState />
@@ -66,11 +46,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>registerGetter</find>
-      <find>store.getters</find>
-      <find>normalizeMap</find>
-      <find>def</find>
-      <find>_mutations</find>
       <find>getter</find>
       <find>dispatch</find>
       <find>_subscribers</find>
@@ -87,15 +62,20 @@
       <find>###</find>
       <find>getNestedState</find>
       <find>namespace</find>
-      <find>unifyObjectStyle</find>
       <find>store</find>
       <find>defineProperty</find>
       <find>getters</find>
-      <find>state</find>
       <find>vuex</find>
-      <find>./imgs</find>
       <find>Vuex</find>
       <find>enableStrictMode</find>
+      <find>hot</find>
+      <find>state</find>
+      <find>-</find>
+      <find>normalizeNamespace</find>
+      <find>unifyObjectStyle</find>
+      <find>normalizeMap</find>
+      <find>./imgs</find>
+      <find>resetStoreVM</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -106,8 +86,9 @@
       <replace>安装</replace>
       <replace>Vuex</replace>
       <replace>##</replace>
-      <replace>http://momo-project.b0.upaiyun.com/Assets/VUEX/chapter/imgs</replace>
       <replace>store</replace>
+      <replace>http://momo-project.b0.upaiyun.com/Assets/VUEX/chapter/imgs</replace>
+      <replace>-</replace>
     </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/examples</dir>
@@ -127,7 +108,6 @@
         <option value="$PROJECT_DIR$/src/util.js" />
         <option value="$PROJECT_DIR$/examples/counter/Counter.vue" />
         <option value="$PROJECT_DIR$/src/module/module.js" />
-        <option value="$PROJECT_DIR$/src/helpers.js" />
         <option value="$PROJECT_DIR$/read.md" />
         <option value="$PROJECT_DIR$/src/module/module-collection.js" />
         <option value="$PROJECT_DIR$/article/intro.md" />
@@ -137,12 +117,15 @@
         <option value="$PROJECT_DIR$/examples/counter/store.js" />
         <option value="$PROJECT_DIR$/article/chapter/intro.md" />
         <option value="$PROJECT_DIR$/article/chapter/install.md" />
-        <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/src/store.js" />
         <option value="$PROJECT_DIR$/article/chapter/store.md" />
         <option value="$PROJECT_DIR$/article/chapter/installModule.md" />
-        <option value="$PROJECT_DIR$/article/vuex-review.md" />
         <option value="$PROJECT_DIR$/article/chapter/resetStoreVM.md" />
+        <option value="$PROJECT_DIR$/article/vuex-review.md" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/src/store.js" />
+        <option value="$PROJECT_DIR$/src/helpers.js" />
+        <option value="$PROJECT_DIR$/article/chapter/official-map.md" />
+        <option value="$PROJECT_DIR$/article/temp.md" />
       </list>
     </option>
   </component>
@@ -193,12 +176,6 @@
             <path>
               <item name="vuex源码阅读" type="b2602c69:ProjectViewProjectNode" />
               <item name="vuex源码阅读" type="462c0819:PsiDirectoryNode" />
-              <item name="article" type="462c0819:PsiDirectoryNode" />
-              <item name="chapter" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="vuex源码阅读" type="b2602c69:ProjectViewProjectNode" />
-              <item name="vuex源码阅读" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -239,14 +216,14 @@
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/article/chapter" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/article/chapter/imgs" />
       <recent name="$PROJECT_DIR$/article/chapter" />
+      <recent name="$PROJECT_DIR$/article/chapter/imgs" />
       <recent name="$PROJECT_DIR$/article" />
       <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/article/chapter" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -282,11 +259,11 @@
     <option name="totallyTimeSpent" value="19593000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1369" height="877" extended-state="6" />
+    <frame x="0" y="23" width="1368" height="877" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Remote Host" order="3" weight="0.32962328" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4985294" visible="true" weight="0.23210248" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4985294" visible="true" weight="0.18174963" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
@@ -319,7 +296,7 @@
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info id="Favorites" order="3" show_stripe_button="false" side_tool="true" weight="0.11900685" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32941177" />
+      <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="9" weight="0.32941177" />
@@ -327,7 +304,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
       <window_info anchor="right" id="Key Promoter X" order="4" weight="0.32962328" />
-      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32941177" />
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4985294" visible="true" weight="0.1991453" />
     </layout-to-restore>
   </component>
@@ -343,6 +320,32 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/article/chapter/reset-store-vm.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="540">
+            <caret line="36" lean-forward="true" selection-start-line="36" selection-end-line="36" />
+          </first_editor>
+          <second_editor>
+            <markdownNavigatorState />
+          </second_editor>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="6" column="7" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/store.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3465">
+          <caret line="231" column="32" selection-start-line="231" selection-start-column="29" selection-end-line="231" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/examples/counter/store.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -442,13 +445,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/helpers.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="80" column="25" selection-start-line="80" selection-start-column="13" selection-end-line="80" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/examples/counter/Counter.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="335">
@@ -484,23 +480,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/article/temp.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
-        <state split_layout="SPLIT">
-          <first_editor />
-          <second_editor>
-            <markdownNavigatorState />
-          </second_editor>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/read.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="FIRST">
@@ -510,25 +489,6 @@
           <second_editor>
             <markdownNavigatorState />
           </second_editor>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
-        <state split_layout="FIRST">
-          <first_editor relative-caret-position="390">
-            <caret line="26" column="76" selection-start-line="26" selection-start-column="76" selection-end-line="26" selection-end-column="76" />
-          </first_editor>
-          <second_editor>
-            <markdownNavigatorState />
-          </second_editor>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/mixin.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="25" selection-start-line="19" selection-start-column="10" selection-end-line="19" selection-end-column="25" />
         </state>
       </provider>
     </entry>
@@ -557,9 +517,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="705">
           <caret line="48" column="2" selection-start-line="48" selection-start-column="2" selection-end-line="48" selection-end-column="2" />
-          <folding>
-            <element signature="e#22#51#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -613,44 +570,35 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/article/chapter/imgs/installModule-001.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/article/chapter/imgs/installModule-002.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/article/chapter/imgs/installModule-006.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/article/chapter/imgs/installModule-005.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/article/chapter/imgs/installModule-004.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/article/chapter/imgs/installModule-003.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/article/chapter/imgs/installModule-007.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/article/chapter/imgs/installModule-008.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/article/chapter/imgs/installModule-009.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/article/chapter/imgs/installModule-010.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/article/chapter/imgs/installModule-011.png">
-      <provider selected="true" editor-type-id="images" />
+    <entry file="file://$PROJECT_DIR$/article/chapter/reset-store-vm.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="540">
+            <caret line="36" selection-start-line="36" selection-end-line="36" />
+          </first_editor>
+          <second_editor>
+            <markdownNavigatorState />
+          </second_editor>
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/article/chapter/store.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="FIRST">
-          <first_editor relative-caret-position="375">
-            <caret line="63" lean-forward="true" selection-start-line="63" selection-end-line="63" />
+          <first_editor relative-caret-position="224">
+            <caret line="32" column="70" selection-start-line="32" selection-start-column="65" selection-end-line="32" selection-end-column="70" />
+          </first_editor>
+          <second_editor>
+            <markdownNavigatorState />
+          </second_editor>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+        <state split_layout="FIRST">
+          <first_editor>
+            <caret lean-forward="true" />
           </first_editor>
           <second_editor>
             <markdownNavigatorState />
@@ -661,8 +609,8 @@
     <entry file="file://$PROJECT_DIR$/article/vuex-review.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="FIRST">
-          <first_editor relative-caret-position="1815">
-            <caret line="121" selection-start-line="121" selection-end-line="121" />
+          <first_editor relative-caret-position="1245">
+            <caret line="83" column="19" lean-forward="true" selection-end-line="208" />
           </first_editor>
           <second_editor>
             <markdownNavigatorState />
@@ -670,30 +618,63 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/article/chapter/installModule.md">
+    <entry file="file://$PROJECT_DIR$/src/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="6" column="7" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/mixin.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/article/chapter/install-module.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="FIRST">
           <first_editor relative-caret-position="198">
-            <caret line="15" column="92" lean-forward="true" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="92" />
+            <caret line="15" column="69" selection-start-line="15" selection-start-column="10" selection-end-line="15" selection-end-column="69" />
           </first_editor>
           <second_editor>
             <markdownNavigatorState />
           </second_editor>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/article/chapter/official-map.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="223">
+            <caret line="173" lean-forward="true" selection-start-line="173" selection-end-line="173" />
+          </first_editor>
+          <second_editor>
+            <markdownNavigatorState />
+          </second_editor>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/helpers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="109" column="46" lean-forward="true" selection-start-line="109" selection-start-column="46" selection-end-line="109" selection-end-column="46" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/store.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="258" column="26" lean-forward="true" selection-start-line="257" selection-start-column="1" selection-end-line="258" selection-end-column="26" />
+        <state relative-caret-position="-163">
+          <caret line="235" column="9" selection-start-line="235" selection-start-column="9" selection-end-line="235" selection-end-column="9" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/article/chapter/resetStoreVM.md">
+    <entry file="file://$PROJECT_DIR$/article/temp.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="FIRST">
-          <first_editor relative-caret-position="240">
-            <caret line="16" column="89" lean-forward="true" selection-start-line="16" selection-start-column="89" selection-end-line="16" selection-end-column="89" />
+          <first_editor relative-caret-position="15">
+            <caret line="1" column="27" selection-end-line="3" />
           </first_editor>
           <second_editor>
             <markdownNavigatorState />

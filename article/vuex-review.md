@@ -109,7 +109,6 @@
 
 
 
-
 # dispatch函数介绍
 - 参数介绍
   - _type 是调用的mutation函数名，payload是负载参数
